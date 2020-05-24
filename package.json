@@ -1,0 +1,34 @@
+{
+	"name": "prosemirror-scroll2cursor",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsc --declaration",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kongdivin/prosemirror-scroll2cursor.git"
+	},
+	"keywords": [
+		"prosemirror",
+		"plugin"
+	],
+	"author": "Divin Kong <divin@okayish.dev>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/kongdivin/prosemirror-scroll2cursor/issues"
+	},
+	"homepage": "https://github.com/kongdivin/prosemirror-scroll2cursor#readme",
+	"dependencies": {
+		"debug": "^4.1.1",
+		"prosemirror-state": "^1.3.3"
+	},
+	"devDependencies": {
+		"@types/debug": "^4.1.5",
+		"@types/prosemirror-state": "^1.2.4",
+		"typescript": "^3.9.3"
+	}
+}
