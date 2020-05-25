@@ -2,12 +2,22 @@
 
 Scroll2Cursor is a [prosemirror](https://prosemirror.net/) plugin. It makes sure
 the cursor is always visible and at the position that is comfortable for typing,
-not too low at the bottom or too high at the top;
+not too low at the bottom or too high at the top.
 
 ## Demo
 
 ![Demo
 GIF](https://raw.githubusercontent.com/kongdivin/prosemirror-scroll2cursor/master/demo/scroll2cursor.gif)
+
+## Installation
+
+```bash
+# NPM
+npm install --save prosemirror-scroll2cursor
+
+# Yarn
+yarn add prosemirror-scroll2cursor
+```
 
 ## Usage
 
