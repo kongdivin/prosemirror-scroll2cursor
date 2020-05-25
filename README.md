@@ -63,6 +63,16 @@ export type Scroll2CursorOptions = {
 };
 ```
 
+To make the scrolling smooth, you can add the CSS property as below. See
+[scroll-behavior](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior)
+for more details
+
+```css
+body {
+	scroll-behavior: smooth;
+}
+```
+
 ## Contributing
 
 If you spot any bugs or want to request a new feature, please use [Issue
