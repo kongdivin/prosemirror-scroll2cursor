@@ -1,7 +1,4 @@
-import debug from 'debug';
 import { Plugin } from 'prosemirror-state';
-
-const log = debug('sroll2cursor:log');
 
 const DEFAULT_DELAY = 50;
 const DEFAULT_OFFSET_BOTTOM = 64;
@@ -37,7 +34,12 @@ export type Scroll2CursorOptions = {
 	 * Number of pixels you want to scroll downward/upward when the cursor is
 	 * too low/high the. Default to 96.
 	 */
-	scrollDistance?: number
+	scrollDistance?: number,
+	/**
+	 * When debugMode is false or not set, the plugin will not print anything to
+	 * the console.
+	 */
+	debugMode?: boolean
 };
 
 /**
@@ -71,7 +73,7 @@ export const newScroll2CursorPlugin = (options?: Scroll2CursorOptions): Plugin =
 						const scrollTop = options?.computeScrollTop ? options.computeScrollTop() : getScrollTop();
 
 						if (scrollTop === -1) {
-							log("The plugin could not determine scrollTop");
+							options?.debugMode && console.error("The plugin could not determine scrollTop");
 							return;
 						}
 
@@ -87,7 +89,8 @@ export const newScroll2CursorPlugin = (options?: Scroll2CursorOptions): Plugin =
 						}
 					}, options?.delay ?? DEFAULT_DELAY);
 				} else {
-					log("The window height is too small for the scrolling configurations");
+					options?.debugMode
+						&& console.info("The window height is too small for the scrolling configurations");
 				}
 
 				return false;
