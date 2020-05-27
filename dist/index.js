@@ -21,14 +21,15 @@ exports.getScrollTop = getScrollTop;
  * high at the top;
  */
 exports.newScroll2CursorPlugin = function (options) {
+    var _a, _b, _c;
     var timeoutScroll;
+    var offsetBottom = (_a = options === null || options === void 0 ? void 0 : options.offsetBottom) !== null && _a !== void 0 ? _a : DEFAULT_OFFSET_BOTTOM;
+    var offsetTop = (_b = options === null || options === void 0 ? void 0 : options.offsetTop) !== null && _b !== void 0 ? _b : DEFAULT_OFFEST_TOP;
+    var scrollDistance = (_c = options === null || options === void 0 ? void 0 : options.scrollDistance) !== null && _c !== void 0 ? _c : DEFAULT_SCROLL_DISTANCE;
     return new prosemirror_state_1.Plugin({
         props: {
             handleKeyDown: function (view) {
-                var _a, _b, _c, _d;
-                var offsetBottom = (_a = options === null || options === void 0 ? void 0 : options.offsetBottom) !== null && _a !== void 0 ? _a : DEFAULT_OFFSET_BOTTOM;
-                var offsetTop = (_b = options === null || options === void 0 ? void 0 : options.offsetTop) !== null && _b !== void 0 ? _b : DEFAULT_OFFEST_TOP;
-                var scrollDistance = (_c = options === null || options === void 0 ? void 0 : options.scrollDistance) !== null && _c !== void 0 ? _c : DEFAULT_SCROLL_DISTANCE;
+                var _a;
                 if (window.innerHeight > offsetBottom + offsetTop + scrollDistance) {
                     timeoutScroll && clearTimeout(timeoutScroll);
                     timeoutScroll = setTimeout(function () {
@@ -47,7 +48,7 @@ exports.newScroll2CursorPlugin = function (options) {
                         if (offTop < 0) {
                             window.scrollTo(0, scrollTop + offTop - scrollDistance);
                         }
-                    }, (_d = options === null || options === void 0 ? void 0 : options.delay) !== null && _d !== void 0 ? _d : DEFAULT_DELAY);
+                    }, (_a = options === null || options === void 0 ? void 0 : options.delay) !== null && _a !== void 0 ? _a : DEFAULT_DELAY);
                 }
                 else {
                     (options === null || options === void 0 ? void 0 : options.debugMode) && console.info("The window height is too small for the scrolling configurations");

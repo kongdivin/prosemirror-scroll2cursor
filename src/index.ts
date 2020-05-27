@@ -57,13 +57,13 @@ export function getScrollTop(): number {
  */
 export const newScroll2CursorPlugin = (options?: Scroll2CursorOptions): Plugin => {
 	let timeoutScroll: ReturnType<typeof setTimeout>;
-
+	const offsetBottom = options?.offsetBottom ?? DEFAULT_OFFSET_BOTTOM;
+	const offsetTop = options?.offsetTop ?? DEFAULT_OFFEST_TOP;
+	const scrollDistance = options?.scrollDistance ?? DEFAULT_SCROLL_DISTANCE;
+	
 	return new Plugin({
 		props: {
 			handleKeyDown(view) {
-				const offsetBottom = options?.offsetBottom ?? DEFAULT_OFFSET_BOTTOM;
-				const offsetTop = options?.offsetTop ?? DEFAULT_OFFEST_TOP;
-				const scrollDistance = options?.scrollDistance ?? DEFAULT_SCROLL_DISTANCE;
 				if (window.innerHeight > offsetBottom + offsetTop + scrollDistance) {
 					timeoutScroll && clearTimeout(timeoutScroll);
 					timeoutScroll = setTimeout(function () {
