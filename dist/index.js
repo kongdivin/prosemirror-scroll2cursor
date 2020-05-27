@@ -11,9 +11,8 @@ var DEFAULT_SCROLL_DISTANCE = 96;
  * It returns `-1` when it cannot determine the value.
  */
 function getScrollTop() {
-    return window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop || -1;
+    var _a;
+    return (_a = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop)) !== null && _a !== void 0 ? _a : -1;
 }
 exports.getScrollTop = getScrollTop;
 /**

@@ -47,9 +47,7 @@ export type Scroll2CursorOptions = {
  * It returns `-1` when it cannot determine the value.
  */
 export function getScrollTop(): number {
-	return window.pageYOffset ||
-		document.documentElement.scrollTop ||
-		document.body.scrollTop || -1;
+	return (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) ?? -1;
 }
 
 /**
