@@ -1,6 +1,6 @@
 import { Plugin } from 'prosemirror-state';
 
-const DEFAULT_DELAY = 50;
+const DEFAULT_DELAY = 100;
 const DEFAULT_OFFSET_BOTTOM = 64;
 const DEFAULT_OFFEST_TOP = 168;
 const DEFAULT_SCROLL_DISTANCE = 96;
@@ -60,10 +60,10 @@ export const newScroll2CursorPlugin = (options?: Scroll2CursorOptions): Plugin =
 	const offsetBottom = options?.offsetBottom ?? DEFAULT_OFFSET_BOTTOM;
 	const offsetTop = options?.offsetTop ?? DEFAULT_OFFEST_TOP;
 	const scrollDistance = options?.scrollDistance ?? DEFAULT_SCROLL_DISTANCE;
-	
+
 	return new Plugin({
 		props: {
-			handleKeyDown(view) {
+			handleScrollToSelection(view) {
 				if (window.innerHeight > offsetBottom + offsetTop + scrollDistance) {
 					timeoutScroll && clearTimeout(timeoutScroll);
 					timeoutScroll = setTimeout(function () {
@@ -91,7 +91,7 @@ export const newScroll2CursorPlugin = (options?: Scroll2CursorOptions): Plugin =
 						&& console.info("The window height is too small for the scrolling configurations");
 				}
 
-				return false;
+				return true;
 			}
 		}
 	});

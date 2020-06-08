@@ -1,12 +1,11 @@
 {
 	"name": "prosemirror-scroll2cursor",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
-		"build": "tsc --declaration",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build": "tsc --declaration"
 	},
 	"repository": {
 		"type": "git",

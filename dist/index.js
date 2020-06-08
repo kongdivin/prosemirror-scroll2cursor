@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.newScroll2CursorPlugin = exports.getScrollTop = void 0;
 var prosemirror_state_1 = require("prosemirror-state");
-var DEFAULT_DELAY = 50;
+var DEFAULT_DELAY = 100;
 var DEFAULT_OFFSET_BOTTOM = 64;
 var DEFAULT_OFFEST_TOP = 168;
 var DEFAULT_SCROLL_DISTANCE = 96;
@@ -28,7 +28,7 @@ exports.newScroll2CursorPlugin = function (options) {
     var scrollDistance = (_c = options === null || options === void 0 ? void 0 : options.scrollDistance) !== null && _c !== void 0 ? _c : DEFAULT_SCROLL_DISTANCE;
     return new prosemirror_state_1.Plugin({
         props: {
-            handleKeyDown: function (view) {
+            handleScrollToSelection: function (view) {
                 var _a;
                 if (window.innerHeight > offsetBottom + offsetTop + scrollDistance) {
                     timeoutScroll && clearTimeout(timeoutScroll);
@@ -53,7 +53,7 @@ exports.newScroll2CursorPlugin = function (options) {
                 else {
                     (options === null || options === void 0 ? void 0 : options.debugMode) && console.info("The window height is too small for the scrolling configurations");
                 }
-                return false;
+                return true;
             }
         }
     });
