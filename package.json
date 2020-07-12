@@ -1,7 +1,7 @@
 {
 	"name": "prosemirror-scroll2cursor",
-	"version": "1.0.3",
-	"description": "",
+	"version": "1.0.4",
+	"description": "A Prosemirror plugin that keeps the cursor at a comfortable position.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -26,7 +26,7 @@
 		"prosemirror-state": "^1.3.3"
 	},
 	"devDependencies": {
-		"@types/prosemirror-state": "^1.2.4",
-		"typescript": "^3.9.3"
+		"@types/prosemirror-state": "^1.2.5",
+		"typescript": "^3.9.6"
 	}
 }
