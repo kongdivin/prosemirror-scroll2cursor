@@ -30,29 +30,28 @@ exports.newScroll2CursorPlugin = function (options) {
         props: {
             handleScrollToSelection: function (view) {
                 var _a;
-                if (window.innerHeight > offsetBottom + offsetTop + scrollDistance) {
-                    timeoutScroll && clearTimeout(timeoutScroll);
-                    timeoutScroll = setTimeout(function () {
-                        var top = view.coordsAtPos(view.state.selection.$head.pos).top;
-                        var scrollTop = (options === null || options === void 0 ? void 0 : options.computeScrollTop) ? options.computeScrollTop() : getScrollTop();
-                        if (scrollTop === -1) {
-                            (options === null || options === void 0 ? void 0 : options.debugMode) && console.error("The plugin could not determine scrollTop");
-                            return;
-                        }
-                        var offBottom = top + offsetBottom - innerHeight;
-                        if (offBottom > 0) {
-                            window.scrollTo(0, scrollTop + offBottom + scrollDistance);
-                            return;
-                        }
-                        var offTop = top - offsetTop;
-                        if (offTop < 0) {
-                            window.scrollTo(0, scrollTop + offTop - scrollDistance);
-                        }
-                    }, (_a = options === null || options === void 0 ? void 0 : options.delay) !== null && _a !== void 0 ? _a : DEFAULT_DELAY);
-                }
-                else {
+                if (window.innerHeight <= offsetBottom + offsetTop + scrollDistance) {
                     (options === null || options === void 0 ? void 0 : options.debugMode) && console.info("The window height is too small for the scrolling configurations");
+                    return false;
                 }
+                timeoutScroll && clearTimeout(timeoutScroll);
+                timeoutScroll = setTimeout(function () {
+                    var top = view.coordsAtPos(view.state.selection.$head.pos).top;
+                    var scrollTop = (options === null || options === void 0 ? void 0 : options.computeScrollTop) ? options.computeScrollTop() : getScrollTop();
+                    if (scrollTop === -1) {
+                        (options === null || options === void 0 ? void 0 : options.debugMode) && console.error("The plugin could not determine scrollTop");
+                        return;
+                    }
+                    var offBottom = top + offsetBottom - innerHeight;
+                    if (offBottom > 0) {
+                        window.scrollTo(0, scrollTop + offBottom + scrollDistance);
+                        return;
+                    }
+                    var offTop = top - offsetTop;
+                    if (offTop < 0) {
+                        window.scrollTo(0, scrollTop + offTop - scrollDistance);
+                    }
+                }, (_a = options === null || options === void 0 ? void 0 : options.delay) !== null && _a !== void 0 ? _a : DEFAULT_DELAY);
                 return true;
             }
         }

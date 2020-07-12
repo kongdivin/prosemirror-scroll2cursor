@@ -64,32 +64,33 @@ export const newScroll2CursorPlugin = (options?: Scroll2CursorOptions): Plugin =
 	return new Plugin({
 		props: {
 			handleScrollToSelection(view) {
-				if (window.innerHeight > offsetBottom + offsetTop + scrollDistance) {
-					timeoutScroll && clearTimeout(timeoutScroll);
-					timeoutScroll = setTimeout(function () {
-						const top = view.coordsAtPos(view.state.selection.$head.pos).top;
-						const scrollTop = options?.computeScrollTop ? options.computeScrollTop() : getScrollTop();
-
-						if (scrollTop === -1) {
-							options?.debugMode && console.error("The plugin could not determine scrollTop");
-							return;
-						}
-
-						const offBottom = top + offsetBottom - innerHeight;
-						if (offBottom > 0) {
-							window.scrollTo(0, scrollTop + offBottom + scrollDistance);
-							return;
-						}
-
-						const offTop = top - offsetTop;
-						if (offTop < 0) {
-							window.scrollTo(0, scrollTop + offTop - scrollDistance);
-						}
-					}, options?.delay ?? DEFAULT_DELAY);
-				} else {
+				if (window.innerHeight <= offsetBottom + offsetTop + scrollDistance) {
 					options?.debugMode
 						&& console.info("The window height is too small for the scrolling configurations");
+					return false;
 				}
+
+				timeoutScroll && clearTimeout(timeoutScroll);
+				timeoutScroll = setTimeout(function () {
+					const top = view.coordsAtPos(view.state.selection.$head.pos).top;
+					const scrollTop = options?.computeScrollTop ? options.computeScrollTop() : getScrollTop();
+
+					if (scrollTop === -1) {
+						options?.debugMode && console.error("The plugin could not determine scrollTop");
+						return;
+					}
+
+					const offBottom = top + offsetBottom - innerHeight;
+					if (offBottom > 0) {
+						window.scrollTo(0, scrollTop + offBottom + scrollDistance);
+						return;
+					}
+
+					const offTop = top - offsetTop;
+					if (offTop < 0) {
+						window.scrollTo(0, scrollTop + offTop - scrollDistance);
+					}
+				}, options?.delay ?? DEFAULT_DELAY);
 
 				return true;
 			}
