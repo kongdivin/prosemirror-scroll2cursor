@@ -10,6 +10,11 @@ const DEFAULT_SCROLL_DISTANCE = 96;
  */
 export type Scroll2CursorOptions = {
 	/**
+	 * The HTML element that wraps around the editor on which you would
+	 * call `scrollTo` to scroll to the cursor. Default to `window`.
+	 */
+	scrollerElement?: HTMLElement,
+	/**
 	 * Number of milliseconds to wait before starting scrolling. The main reason
 	 * for the delay is that it helps prevent flickering when the user hold down
 	 * the up/down key. Default to 50.
@@ -43,14 +48,6 @@ export type Scroll2CursorOptions = {
 };
 
 /**
- * Get the number of pixels that the current document is scrolled vertically.
- * It returns `-1` when it cannot determine the value.
- */
-export function getScrollTop(): number {
-	return (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) ?? -1;
-}
-
-/**
  * Scroll2Cursor plugin makes sure the cursor is always visible and at the
  * position that is comfortable for typing, not too low at the bottom or too
  * high at the top;
@@ -60,11 +57,16 @@ export const newScroll2CursorPlugin = (options?: Scroll2CursorOptions): Plugin =
 	const offsetBottom = options?.offsetBottom ?? DEFAULT_OFFSET_BOTTOM;
 	const offsetTop = options?.offsetTop ?? DEFAULT_OFFEST_TOP;
 	const scrollDistance = options?.scrollDistance ?? DEFAULT_SCROLL_DISTANCE;
+	const scrollerHeight = options?.scrollerElement?.getBoundingClientRect().height ?? window.innerHeight;
+
+	function scrollTo(x: number, y: number) {
+		(options?.scrollerElement ?? window).scrollTo(x, y);
+	}
 
 	return new Plugin({
 		props: {
 			handleScrollToSelection(view) {
-				if (window.innerHeight <= offsetBottom + offsetTop + scrollDistance) {
+				if (scrollerHeight <= offsetBottom + offsetTop + scrollDistance) {
 					options?.debugMode
 						&& console.info("The window height is too small for the scrolling configurations");
 					return false;
@@ -72,23 +74,26 @@ export const newScroll2CursorPlugin = (options?: Scroll2CursorOptions): Plugin =
 
 				timeoutScroll && clearTimeout(timeoutScroll);
 				timeoutScroll = setTimeout(function () {
-					const top = view.coordsAtPos(view.state.selection.$head.pos).top;
-					const scrollTop = options?.computeScrollTop ? options.computeScrollTop() : getScrollTop();
+					let top = view.coordsAtPos(view.state.selection.$head.pos).top - (options?.scrollerElement?.getBoundingClientRect().top ?? 0);
+
+					const scrollTop = options?.computeScrollTop
+						? options.computeScrollTop()
+						: options?.scrollerElement?.scrollTop ?? (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) ?? -1;
 
 					if (scrollTop === -1) {
 						options?.debugMode && console.error("The plugin could not determine scrollTop");
 						return;
 					}
 
-					const offBottom = top + offsetBottom - innerHeight;
+					const offBottom = top + offsetBottom - scrollerHeight;
 					if (offBottom > 0) {
-						window.scrollTo(0, scrollTop + offBottom + scrollDistance);
+						scrollTo(0, scrollTop + offBottom + scrollDistance);
 						return;
 					}
 
 					const offTop = top - offsetTop;
 					if (offTop < 0) {
-						window.scrollTo(0, scrollTop + offTop - scrollDistance);
+						scrollTo(0, scrollTop + offTop - scrollDistance);
 					}
 				}, options?.delay ?? DEFAULT_DELAY);
 

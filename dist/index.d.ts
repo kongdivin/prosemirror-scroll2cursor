@@ -4,6 +4,11 @@ import { Plugin } from 'prosemirror-state';
  */
 export declare type Scroll2CursorOptions = {
     /**
+     * The HTML element that wraps around the editor on which you would
+     * call `scrollTo` to scroll to the cursor. Default to `window`.
+     */
+    scrollerElement?: HTMLElement;
+    /**
      * Number of milliseconds to wait before starting scrolling. The main reason
      * for the delay is that it helps prevent flickering when the user hold down
      * the up/down key. Default to 50.
@@ -35,11 +40,6 @@ export declare type Scroll2CursorOptions = {
      */
     debugMode?: boolean;
 };
-/**
- * Get the number of pixels that the current document is scrolled vertically.
- * It returns `-1` when it cannot determine the value.
- */
-export declare function getScrollTop(): number;
 /**
  * Scroll2Cursor plugin makes sure the cursor is always visible and at the
  * position that is comfortable for typing, not too low at the bottom or too
