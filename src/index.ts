@@ -2,7 +2,7 @@ import { Plugin } from 'prosemirror-state';
 
 const DEFAULT_DELAY = 100;
 const DEFAULT_OFFSET_BOTTOM = 64;
-const DEFAULT_OFFEST_TOP = 168;
+const DEFAULT_OFFEST_TOP = 64;
 const DEFAULT_SCROLL_DISTANCE = 96;
 
 /**

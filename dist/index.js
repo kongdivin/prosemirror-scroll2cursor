@@ -4,7 +4,7 @@ exports.newScroll2CursorPlugin = void 0;
 var prosemirror_state_1 = require("prosemirror-state");
 var DEFAULT_DELAY = 100;
 var DEFAULT_OFFSET_BOTTOM = 64;
-var DEFAULT_OFFEST_TOP = 168;
+var DEFAULT_OFFEST_TOP = 64;
 var DEFAULT_SCROLL_DISTANCE = 96;
 /**
  * Scroll2Cursor plugin makes sure the cursor is always visible and at the
