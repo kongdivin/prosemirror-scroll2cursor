@@ -24,7 +24,7 @@ yarn add prosemirror-scroll2cursor
 ```js
 import { newScroll2CursorPlugin } from 'prosemirror-scroll2cursor';
 
-new newScroll2CursorPlugin({ offsetBottom: 64, offsetTop: 128 });
+newScroll2CursorPlugin({ offsetBottom: 64, offsetTop: 128 });
 ```
 
 ## Configurations
